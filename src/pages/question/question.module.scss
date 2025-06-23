@@ -1,0 +1,240 @@
+@use "@/styles/base/media.module" as mediaModule;
+
+.question {
+  font-size: 1rem;
+  margin-top: 40px;
+  display: block;
+  position: relative;
+  width: 100%;
+  margin: auto;
+  max-width: 800px;
+
+  @include mediaModule.respond(xs) {
+    width: 100%;
+    max-width: 100%;
+    margin: unset;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  &__header {
+    display: block;
+    text-align: right;
+  }
+  &__number {
+    display: inline-block;
+    margin-right: 20px;
+  }
+
+  &__subject {
+    display: block;
+  }
+
+  &__text {
+    margin-top: 50px;
+  }
+
+  &__choices {
+    padding: 0;
+    margin-top: 30px;
+  }
+
+  &__choice {
+    font-size: 1rem;
+    display: block;
+    font-weight: 400;
+
+    &-wrapper {
+      position: relative;
+      height: 100%;
+      gap: 10px;
+      border: 2px solid #e5e5e5;
+      border-radius: 12px;
+      // display: flex;
+      transition: all 0.2s;
+      padding: 0 10px;
+      margin-top: 20px;
+      align-items: center;
+      display: flex;
+      &:hover {
+        border: 2px solid #999999;
+      }
+      &:has(input:checked) {
+        background-color: #ecf0ff;
+        border: 2px solid #7491ff;
+      }
+    }
+
+    &:not(:first-of-type) {
+      margin-top: 20px;
+    }
+
+    &__checkbox {
+      width: 20px;
+      height: 20px;
+    }
+    label {
+      flex: 4.7;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      height: 100%;
+      padding: 16px 0;
+      cursor: pointer;
+    }
+    @include mediaModule.respond(xs) {
+      cursor: unset;
+    }
+
+    &--hidden {
+      text-decoration: line-through;
+    }
+    &--answered {
+      text-decoration: unset;
+      .question__choice-wrapper {
+        pointer-events: none;
+      }
+
+      .question__eyeIcon {
+        display: none;
+      }
+
+      &:hover {
+        border: unset;
+      }
+    }
+  }
+  &__commentary {
+    position: relative;
+    display: flex;
+    margin-top: 7px;
+    padding: 0 8px;
+    align-items: center;
+    font-size: 0.95rem;
+    gap: 5px;
+    width: 100%;
+  }
+  &__commentary_icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 6%;
+    img {
+      width: 100%;
+    }
+  }
+  &__commentary_text {
+    font-size: 0.95rem;
+    width: 89%;
+    ul {
+      padding-left: 5px;
+    }
+    li {
+      padding: 3px 0;
+      list-style: none;
+    }
+  }
+  &__eyeIcon {
+    flex: 0.3;
+    display: flex;
+    justify-content: end;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: 0.3s;
+    img {
+      object-fit: contain;
+      width: 100%;
+      width: 25px;
+      height: 25px;
+    }
+  }
+
+  &__answerButton {
+    border-radius: 50px;
+    max-width: 320px;
+    background-color: #2563eb;
+    width: 100%;
+    border: unset;
+    color: white;
+    padding: 12px 0;
+    margin: 50px auto 0;
+    display: block;
+    cursor: pointer;
+    font-size: 1.15rem;
+  }
+
+  &__nextButton {
+    border-radius: 50px;
+    max-width: 320px;
+    background-color: rgb(71, 207, 115);
+    width: 100%;
+    border: unset;
+    padding: 12px 0;
+    margin: 50px auto 0;
+    display: block;
+    cursor: pointer;
+    font-size: 1.15rem;
+    text-align: center;
+    color: black;
+    text-decoration: none;
+  }
+  &__rating {
+    display: block;
+    width: 290px;
+    margin: 30px auto 0;
+
+    &_title {
+      display: block;
+    }
+    &_stars {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+      gap: 10px;
+      justify-content: center;
+    }
+    &_star {
+      cursor: pointer;
+      background-image: url("../../images/question/star-white.svg");
+      width: 50px;
+      height: 50px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      &--selected {
+        background-image: url("../../images/question/star-yellow.svg");
+      }
+    }
+  }
+  &__lottieOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    pointer-events: none;
+  }
+
+  &__lottieCorrectWrapper {
+    max-width: 1400px;
+    width: "100%";
+    @include mediaModule.respond(xs) {
+      max-width: 100%;
+    }
+  }
+  &__lottieIncorrectWrapper {
+    max-width: 1200px;
+    width: "100%";
+    @include mediaModule.respond(xs) {
+      max-width: 700px;
+    }
+  }
+}
