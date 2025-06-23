@@ -11,6 +11,7 @@ import circleGreenSvg from "@/images/question/circle-green.svg"
 import closeRedSvg from "@/images/question/close-red.svg"
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
+
 import { ANSWER_STATE, type AnswerState } from '@/constants/answer';
 import parse from 'html-react-parser'
 import sanitizeHtml from 'sanitize-html'
@@ -126,15 +127,14 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
 
           {showResultAnimation === "correct" && (
             <div className={styles.question__lottieOverlay}>
-              <div style={styles.question_lottieCorrectWrapper}>
-
+                <div style={styles.question_lottieCorrectWrapper}>
                 <DotLottieReact
-                  src="/lottie/correct-lottie.json"
+                  src={require('@/assets/lottie/correct-lottie.json')}
                   autoplay
                   speed={1.1}
                   onAnimationEnd={() => setIsAnimationFinished(true)}
                 />
-              </div>
+                </div>
             </div>
           )}
           {showResultAnimation === "incorrect" && (
@@ -142,7 +142,7 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
               <div style={styles.question_lottieIncorrectWrapper}>
 
                 <DotLottieReact
-                  src="/lottie/incorrect-lottie.json"
+                  src={require('@/assets/lottie/incorrect-lottie.json')}
                   autoplay
                   speed={1.8}
                   onAnimationEnd={() => setIsAnimationFinished(true)}
