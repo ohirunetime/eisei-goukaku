@@ -2,7 +2,6 @@ import * as React from "react"
 import type { HeadFC, PageProps } from "gatsby"
 import { Link } from "gatsby"
 import Layout from "@/components/layout/Layout"
-import questionData from "@/data/question.json"
 import * as styles from "./question.module.scss";
 import eyeOpenSvg from "@/images/question/eye-open.svg"
 import eyeCloseSvg from "@/images/question/eye-close.svg"
@@ -45,9 +44,6 @@ type QuestionPageContext = {
 const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }) => {
   const question = pageContext.question;
   const nextUid = pageContext.nextUid;
-
-
-
 
   // 型安全にアクセスするために選択肢を配列に集める
   const choices = [
