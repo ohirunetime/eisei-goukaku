@@ -125,6 +125,7 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
 
         <div className={styles.question}>
 
+{/* 
           {showResultAnimation === "correct" && (
             <div className={styles.question__lottieOverlay}>
                 <div style={styles.question_lottieCorrectWrapper}>
@@ -149,7 +150,7 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
                 />
               </div>
             </div>
-          )}
+          )} */}
 
           <article>
             <header className={styles.question__header}>
