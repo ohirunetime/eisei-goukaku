@@ -84,7 +84,7 @@ export const createPages: GatsbyNode["createPages"] = async ({ actions, graphql 
 
     createPage({
       path: `./question/${question.node.uid}`,
-      component: path.resolve(`./src/templates/question/questionTemplate.tsx`),
+      component: path.resolve(`./src/templates/questionTemplate.tsx`),
       context: {
         question: question.node,
         prevUid: prevUid,
