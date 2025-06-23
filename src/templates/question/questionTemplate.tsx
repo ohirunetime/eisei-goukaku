@@ -45,6 +45,8 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
   const question = pageContext.question;
   const nextUid = pageContext.nextUid;
 
+  if (!question) return <div>データがありません</div>;
+
   // 型安全にアクセスするために選択肢を配列に集める
   const choices = [
     [
