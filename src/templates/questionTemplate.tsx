@@ -108,7 +108,7 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
     setTimeout(() => {
       setShowResultAnimation(null)
       setIsAnimationFinished(true)
-    }, 2000);
+    }, 1200);
 
   }
 
@@ -125,12 +125,12 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
 
         <div className={styles.question}>
 
-{/* 
+
           {showResultAnimation === "correct" && (
             <div className={styles.question__lottieOverlay}>
                 <div style={styles.question_lottieCorrectWrapper}>
                 <DotLottieReact
-                  src={require('@/assets/lottie/correct-lottie.json')}
+                  src="/lottie/correct-lottie.json"
                   autoplay
                   speed={1.1}
                   onAnimationEnd={() => setIsAnimationFinished(true)}
@@ -143,14 +143,14 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
               <div style={styles.question_lottieIncorrectWrapper}>
 
                 <DotLottieReact
-                  src={require('@/assets/lottie/incorrect-lottie.json')}
+                  src="/lottie/incorrect-lottie.json"
                   autoplay
                   speed={1.8}
                   onAnimationEnd={() => setIsAnimationFinished(true)}
                 />
               </div>
             </div>
-          )} */}
+          )}
 
           <article>
             <header className={styles.question__header}>

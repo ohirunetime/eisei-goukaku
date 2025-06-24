@@ -11,7 +11,7 @@
     "copy-lottie": "cp -R src/static/lottie public/lottie",
     "develop": "gatsby develop",
     "start": "gatsby develop",
-    "build": "gatsby build",
+    "build": "npm run copy-lottie && gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit"
