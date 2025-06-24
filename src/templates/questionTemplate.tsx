@@ -108,7 +108,7 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
     setTimeout(() => {
       setShowResultAnimation(null)
       setIsAnimationFinished(true)
-    }, 1200);
+    }, 1600);
 
   }
 
