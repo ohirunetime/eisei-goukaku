@@ -24,6 +24,7 @@ export const createPages: GatsbyNode["createPages"] = async ({ actions, graphql 
           year: number,
           month: number,
           subject: string,
+          summary: string,
           correctChoice: number,
           choice1: string,
           explanation1: string,
@@ -52,6 +53,7 @@ export const createPages: GatsbyNode["createPages"] = async ({ actions, graphql 
             month
             questionText
             subject
+            summary
             correctChoice
             choice1
             explanation1
@@ -77,6 +79,16 @@ export const createPages: GatsbyNode["createPages"] = async ({ actions, graphql 
     throw new Error("allQuestionJsonが取得できませんでした。データや設定を確認してください。");
   }
   const questions = result.data.allQuestionJson.edges
+
+  createPage({
+    path: "/questions/202504",
+    component: path.resolve(`./src/templates/questionsTemplate.tsx`),
+    context: {
+      questions: questions
+    }
+  });
+
+
   questions.forEach((question, index) => {
 
     const prevUid = index > 0 ? questions[index - 1].node.uid : null;

@@ -1,0 +1,64 @@
+@use "@/styles/base/media.module" as mediaModule;
+
+.questions {
+  font-size: 1rem;
+  margin-top: 40px;
+  display: block;
+  position: relative;
+  width: 100%;
+  margin: auto;
+  max-width: 800px;
+
+  @include mediaModule.respond(xs) {
+    width: 100%;
+    max-width: 100%;
+    margin: unset;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  &__header {
+    display: block;
+    text-align: right;
+  }
+  &__number {
+    display: inline-block;
+    margin-right: 20px;
+  }
+  ol {
+    padding: 0;
+  }
+
+  &__question {
+    font-size: 1rem;
+    display: block;
+    font-weight: 400;
+
+    &-wrapper {
+      position: relative;
+      height: 100%;
+      gap: 10px;
+      border: 2px solid #e5e5e5;
+      border-radius: 12px;
+      // display: flex;
+      transition: all 0.2s;
+      margin-top: 20px;
+      align-items: center;
+      display: flex;
+      a {
+        padding: 12px 10px;
+        height: 100%;
+        color: black;
+        text-decoration: unset;
+      }
+      &:not(:first-of-type) {
+        margin-top: 20px;
+      }
+    }
+  }
+}
