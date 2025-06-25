@@ -21,6 +21,9 @@
     font-size: 1rem;
     font-weight: 400;
   }
+  &__period {
+    margin-bottom: 5px;
+  }
 
   &__header {
     display: block;
@@ -146,6 +149,7 @@
     cursor: pointer;
     margin-right: 10px;
     transition: 0.3s;
+    min-width: 25px;
     img {
       object-fit: contain;
       width: 100%;
@@ -162,7 +166,7 @@
     border: unset;
     color: white;
     padding: 12px 0;
-    margin: 50px auto 60px;
+    margin: 50px auto 100px;
     display: block;
     cursor: pointer;
     font-size: 1.15rem;
@@ -175,7 +179,7 @@
     width: 100%;
     border: unset;
     padding: 12px 0;
-    margin: 50px auto 60px;
+    margin: 50px auto 100px;
     display: block;
     cursor: pointer;
     font-size: 1.15rem;

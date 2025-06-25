@@ -38,7 +38,7 @@ const QuestionsTemplate: React.FC<PageProps<unknown, QuestionsPageContext>> = ({
                                     className={styles.questions__link}
                                     aria-label={`問題${question.node.index}: ${question.node.summary}`}
                                 >
-                                    <span className={styles.questions__index}>({question.node.index})</span>{" "}
+                                    <span className={styles.questions__index}>問{question.node.index}.</span>{" "}
                                     <span className={styles.questions__summary}>
                                         {parse(sanitizeHtml(question.node.summary))}
                                     </span>

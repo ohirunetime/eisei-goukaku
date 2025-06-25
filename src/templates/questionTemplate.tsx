@@ -128,14 +128,14 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
 
           {showResultAnimation === "correct" && (
             <div className={styles.question__lottieOverlay}>
-                <div style={styles.question_lottieCorrectWrapper}>
+              <div style={styles.question_lottieCorrectWrapper}>
                 <DotLottieReact
                   src="/lottie/correct-lottie.json"
                   autoplay
                   speed={1.1}
                   onAnimationEnd={() => setIsAnimationFinished(true)}
                 />
-                </div>
+              </div>
             </div>
           )}
           {showResultAnimation === "incorrect" && (
@@ -154,7 +154,7 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
 
           <article>
             <header className={styles.question__header}>
-              <h1>安全衛生管理者 令和{question.period}年{question.month}月度 過去問 第{question.index}問</h1>
+              <h1 className={styles.question__period}>安全衛生管理者 令和{question.period}年{question.month}月度 過去問 第{question.index}問</h1>
               <span className={styles.question__subject}>{question.subject}</span>
             </header>
             <h2 className={styles.question__text}>
@@ -228,7 +228,7 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
             {answerState === ANSWER_STATE.UNANSWERED &&
               <button type="button" className={styles.question__answerButton} onClick={() => handleAnswer()}>解答する</button>
             }
-            {answerState !== ANSWER_STATE.UNANSWERED &&
+            {/* {answerState !== ANSWER_STATE.UNANSWERED &&
 
               <div className={styles.question__rating}>
                 <span className={styles.question__rating_title}>理解度評価</span>
@@ -245,7 +245,7 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
                   ))}
                 </div>
               </div>
-            }
+            } */}
             {answerState !== ANSWER_STATE.UNANSWERED && nextUid &&
               <Link to={`/question/${nextUid}`} className={styles.question__nextButton}>
                 次の問題へ
