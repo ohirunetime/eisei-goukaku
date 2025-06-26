@@ -115,9 +115,7 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
   // 問題理解度の星のクリック状態
   const handleUnderstandingRatingSelect = (selectStar: number) => {
     setSelectedStar(selectStar);
-    console.log(selectStar)
   }
-
 
   return (
     <Layout>
@@ -154,7 +152,7 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
 
           <article>
             <header className={styles.question__header}>
-              <h1 className={styles.question__period}>安全衛生管理者 令和{question.period}年{question.month}月度 過去問 第{question.index}問</h1>
+              <h1 className={styles.question__period}>衛生管理者 令和{question.period}年{question.month}月度 過去問 第{question.index}問</h1>
               <span className={styles.question__subject}>{question.subject}</span>
             </header>
             <h2 className={styles.question__text}>
@@ -174,8 +172,13 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
                   styles.question__choice +
                   (hiddenChoiceIndices.includes(i) ? " " + styles["question__choiceHidden"] : "")
                   + (answerState !== ANSWER_STATE.UNANSWERED ? " " + styles["question__choiceAnswered"] : "")
+
                 } key={i + 1}>
-                  <div className={styles.question__choiceWrapper}>
+                  <div className={styles.question__choiceWrapper
+                    + (answerState !== ANSWER_STATE.UNANSWERED && i + 1 === question.correctChoice ? " " + styles["question__choiceWrapperCorrect"] : "")
+                    + (answerState === ANSWER_STATE.INCORRECT && i === selectedChoiceIndex ? " " + styles["question__choiceWrapperIncorrect"] : "")
+                  }
+                  >
                     <label className={styles.question__label}>
                       <input
                         type="checkbox"
@@ -188,10 +191,10 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
                       <span className={styles.question__choiceText}>{choice[0]}</span>
                     </label>
                     <div className={styles.question__eyeIcon} onClick={() => handleChoiceVisibilityToggle(i)}>
-                      {hiddenChoiceIndices.includes(i) && selectedChoiceIndex !== i &&
+                      {hiddenChoiceIndices.includes(i) && i !== selectedChoiceIndex &&
                         <img src={eyeOpenSvg} alt="open Icon" />
                       }
-                      {!hiddenChoiceIndices.includes(i) && selectedChoiceIndex !== i &&
+                      {!hiddenChoiceIndices.includes(i) && i !== selectedChoiceIndex &&
 
                         <img src={eyeCloseSvg} alt="close Icon" />
                       }
@@ -206,6 +209,9 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
                       <span className={styles.question__commentary_icon}>
                         {answerState !== ANSWER_STATE.UNANSWERED && (
                           <img src={i + 1 === question.correctChoice ? circleGreenSvg : ""} />
+                        )}
+                        {answerState === ANSWER_STATE.INCORRECT && i === selectedChoiceIndex && (
+                          <img src={closeRedSvg} />
                         )}
                       </span>
 
@@ -251,11 +257,7 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
                 次の問題へ
               </Link>
             }
-            {answerState === ANSWER_STATE.CORRECT && <p>正解です！</p>}
-            {answerState === ANSWER_STATE.INCORRECT && <p>不正解です。</p>}
-
           </article>
-
 
         </div>
       </section>
