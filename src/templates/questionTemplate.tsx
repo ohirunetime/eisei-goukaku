@@ -177,6 +177,7 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
                   <div className={styles.question__choiceWrapper
                     + (answerState !== ANSWER_STATE.UNANSWERED && i + 1 === question.correctChoice ? " " + styles["question__choiceWrapperCorrect"] : "")
                     + (answerState === ANSWER_STATE.INCORRECT && i === selectedChoiceIndex ? " " + styles["question__choiceWrapperIncorrect"] : "")
+                    + (answerState !== ANSWER_STATE.UNANSWERED ? " " + styles["question__choiceWrapperDone"] : "")
                   }
                   >
                     <label className={styles.question__label}>
