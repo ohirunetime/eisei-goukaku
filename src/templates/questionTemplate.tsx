@@ -235,24 +235,29 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
             {answerState === ANSWER_STATE.UNANSWERED &&
               <button type="button" className={styles.question__answerButton} onClick={() => handleAnswer()}>解答する</button>
             }
-            {/* {answerState !== ANSWER_STATE.UNANSWERED &&
+           {answerState !== ANSWER_STATE.UNANSWERED &&
 
-              <div className={styles.question__rating}>
-                <span className={styles.question__rating_title}>理解度評価</span>
+              // <div className={styles.question__rating}>
+              //   <span className={styles.question__rating_title}>理解度評価</span>
 
-                <div className={styles.question__rating_stars}>
-                  {Array.from({ length: 5 }, (_, i) => (
-                    <span
-                      className={
-                        styles.question__rating_star +
-                        (understandingRating !== null && i + 1 <= understandingRating ? " " + styles["question__rating_starSelected"] : "")
-                      }
-                      onClick={() => handleUnderstandingRatingSelect(i + 1)}
-                    ></span>
-                  ))}
-                </div>
+              //   <div className={styles.question__rating_stars}>
+              //     {Array.from({ length: 5 }, (_, i) => (
+              //       <span
+              //         className={
+              //           styles.question__rating_star +
+              //           (understandingRating !== null && i + 1 <= understandingRating ? " " + styles["question__rating_starSelected"] : "")
+              //         }
+              //         onClick={() => handleUnderstandingRatingSelect(i + 1)}
+              //       ></span>
+              //     ))}
+              //   </div>
+              // </div>
+
+              <div className={styles.question__keep}>
+                <input type="checkbox" id="keep" />
+                <label htmlFor="keep">あとで見返す</label>
               </div>
-            } */}
+            } 
             {answerState !== ANSWER_STATE.UNANSWERED && nextUid &&
               <Link to={`/question/${nextUid}`} className={styles.question__nextButton}>
                 次の問題へ
