@@ -208,11 +208,11 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
 
                       <span className={styles.question__commentary_icon}>
                         {answerState !== ANSWER_STATE.UNANSWERED && (
-                          <img src={i + 1 === question.correctChoice ? circleGreenSvg : ""} />
+                          <img src={i + 1 === question.correctChoice ? circleGreenSvg : closeRedSvg} />
                         )}
-                        {answerState === ANSWER_STATE.INCORRECT && i === selectedChoiceIndex && (
+                        {/* {answerState === ANSWER_STATE.INCORRECT && i === selectedChoiceIndex && (
                           <img src={closeRedSvg} />
-                        )}
+                        )} */}
                       </span>
 
                       {answerState !== ANSWER_STATE.UNANSWERED && (
