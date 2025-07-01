@@ -12,15 +12,7 @@ const Header = () => {
                 衛生管理者合格ナビ
             </Link>
             <nav className={styles.header__nav}>
-                {user ? (
-                    <Link to={`/logout`} className={styles.header__link}>
-                        ログアウト
-                    </Link>
-                ) : (
-                    <Link to={`/login`} className={styles.header__link}>
-                        ログイン
-                    </Link>
-                )}
+               
             </nav>
         </div>
     </header>;
