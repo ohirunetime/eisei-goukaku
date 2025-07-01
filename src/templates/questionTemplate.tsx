@@ -10,6 +10,7 @@ import starWhiteSvg from "@/images/question/star-white.svg"
 import circleGreenSvg from "@/images/question/circle-green.svg"
 import closeRedSvg from "@/images/question/close-red.svg"
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+import { useAuth } from "@/contexts/AuthContext";
 
 
 import { ANSWER_STATE, type AnswerState } from '@/constants/answer';
@@ -45,6 +46,8 @@ type QuestionPageContext = {
 const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }) => {
   const question = pageContext.question;
   const nextUid = pageContext.nextUid;
+  const {user} = useAuth();
+
 
   if (!question) return <div>データがありません</div>;
 
@@ -122,8 +125,6 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
       <section>
 
         <div className={styles.question}>
-
-
           {showResultAnimation === "correct" && (
             <div className={styles.question__lottieOverlay}>
               <div style={styles.question_lottieCorrectWrapper}>
@@ -235,7 +236,7 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
             {answerState === ANSWER_STATE.UNANSWERED &&
               <button type="button" className={styles.question__answerButton} onClick={() => handleAnswer()}>解答する</button>
             }
-           {answerState !== ANSWER_STATE.UNANSWERED &&
+            {answerState !== ANSWER_STATE.UNANSWERED &&
 
               // <div className={styles.question__rating}>
               //   <span className={styles.question__rating_title}>理解度評価</span>
@@ -257,7 +258,7 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
                 <input type="checkbox" id="keep" />
                 <label htmlFor="keep">あとで見返す</label>
               </div>
-            } 
+            }
             {answerState !== ANSWER_STATE.UNANSWERED && nextUid &&
               <Link to={`/question/${nextUid}`} className={styles.question__nextButton}>
                 次の問題へ

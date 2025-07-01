@@ -10,9 +10,9 @@
   max-width: 800px;
 
   @include mediaModule.respond(xs) {
-    width: 100%;
+    width: calc(100% - 16px);
     max-width: 100%;
-    margin: unset;
+    margin: 0 auto;
   }
 
   h1,
@@ -61,7 +61,7 @@
       // display: flex;
       transition: all 0.2s;
       padding: 0 10px;
-      margin-top: 20px;
+      margin-top: 25px;
       align-items: center;
       display: flex;
       &:hover {
@@ -81,6 +81,9 @@
       }
       &-done {
         border: 2px solid #6a6a6a;
+      }
+      @include mediaModule.respond(xs) {
+        margin-top: 20px;
       }
     }
 
@@ -257,9 +260,12 @@
   }
   &__keep {
     display: flex;
-    margin-top: 30px;
+    margin-top: 45px;
     padding: 0 0 0 8px;
     align-content: center;
+    @include mediaModule.respond(xs) {
+      margin-top: 30px;
+    }
 
     label {
       padding-left: 6px;

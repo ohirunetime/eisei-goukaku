@@ -20,6 +20,7 @@
   "dependencies": {
     "@lottiefiles/dotlottie-react": "^0.14.1",
     "@types/sanitize-html": "^2.16.0",
+    "firebase": "^11.9.1",
     "gatsby": "^5.14.1",
     "gatsby-source-filesystem": "^5.14.0",
     "gatsby-transformer-json": "^5.14.0",
