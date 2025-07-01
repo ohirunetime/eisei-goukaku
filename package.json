@@ -8,7 +8,7 @@
     "gatsby"
   ],
   "scripts": {
-    "copy-lottie": "cp -R src/static/lottie public/lottie",
+    "copy-lottie": "mkdir -p public/lottie && cp -R src/static/lottie/* public/lottie/",
     "develop": "gatsby develop",
     "start": "gatsby develop",
     "build": "npm run copy-lottie && gatsby build",
