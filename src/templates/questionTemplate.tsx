@@ -131,7 +131,7 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
                 <DotLottieReact
                   src="/lottie/correct-lottie.json"
                   autoplay
-                  speed={1.1}
+                  speed={1.8}
                   onAnimationEnd={() => setIsAnimationFinished(true)}
                 />
               </div>
