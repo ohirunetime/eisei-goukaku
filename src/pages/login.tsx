@@ -3,6 +3,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { navigate } from "gatsby";
 import Layout from "@/components/layout/Layout";
 import * as styles from "@/styles/page/login.module.scss";
+import { toast } from "react-hot-toast";
 
 const LoginPage: React.FC = () => {
     const { login, user } = useAuth();
@@ -21,6 +22,7 @@ const LoginPage: React.FC = () => {
 
         try {
             await login(userId, password);
+            toast.success("ログインしました");
             navigate("/");
         } catch (err) {
             setError("ログインに失敗しました");
