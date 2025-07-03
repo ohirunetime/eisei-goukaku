@@ -10,6 +10,8 @@ import starWhiteSvg from "@/images/question/star-white.svg"
 import circleGreenSvg from "@/images/question/circle-green.svg"
 import closeRedSvg from "@/images/question/close-red.svg"
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+import { useAuth } from "@/contexts/AuthContext";
+import { toast } from "react-hot-toast";
 
 
 import { ANSWER_STATE, type AnswerState } from '@/constants/answer';
@@ -45,6 +47,8 @@ type QuestionPageContext = {
 const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }) => {
   const question = pageContext.question;
   const nextUid = pageContext.nextUid;
+  const { user } = useAuth();
+
 
   if (!question) return <div>データがありません</div>;
 
@@ -80,6 +84,7 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
   const [showResultAnimation, setShowResultAnimation] = React.useState<null | "correct" | "incorrect">(null);
 
   const [isAnimationFinished, setIsAnimationFinished] = React.useState(false);
+  const [isSuccessKeep, setIsSuccessKeep] = React.useState(false);
 
   // 選択肢のセレクト状態
   const handleChoiceSelect = (choiceIndex: number) => {
@@ -117,20 +122,29 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
     setSelectedStar(selectStar);
   }
 
+  const handleKeepQuestion = (checked: boolean) => {
+    if (checked) {
+      setIsSuccessKeep(true);
+      toast.success("保存しました");
+    } else {
+      setIsSuccessKeep(true);
+      toast.success("保存を取り消しました");
+
+    }
+  }
+
   return (
     <Layout>
       <section>
 
         <div className={styles.question}>
-
-
           {showResultAnimation === "correct" && (
             <div className={styles.question__lottieOverlay}>
               <div style={styles.question_lottieCorrectWrapper}>
                 <DotLottieReact
                   src="/lottie/correct-lottie.json"
                   autoplay
-                  speed={1.1}
+                  speed={1.8}
                   onAnimationEnd={() => setIsAnimationFinished(true)}
                 />
               </div>
@@ -235,29 +249,12 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
             {answerState === ANSWER_STATE.UNANSWERED &&
               <button type="button" className={styles.question__answerButton} onClick={() => handleAnswer()}>解答する</button>
             }
-           {answerState !== ANSWER_STATE.UNANSWERED &&
-
-              // <div className={styles.question__rating}>
-              //   <span className={styles.question__rating_title}>理解度評価</span>
-
-              //   <div className={styles.question__rating_stars}>
-              //     {Array.from({ length: 5 }, (_, i) => (
-              //       <span
-              //         className={
-              //           styles.question__rating_star +
-              //           (understandingRating !== null && i + 1 <= understandingRating ? " " + styles["question__rating_starSelected"] : "")
-              //         }
-              //         onClick={() => handleUnderstandingRatingSelect(i + 1)}
-              //       ></span>
-              //     ))}
-              //   </div>
-              // </div>
-
+            {answerState !== ANSWER_STATE.UNANSWERED &&
               <div className={styles.question__keep}>
-                <input type="checkbox" id="keep" />
+                <input type="checkbox" id="keep" onChange={(e) => handleKeepQuestion(e.target.checked)} />
                 <label htmlFor="keep">あとで見返す</label>
               </div>
-            } 
+            }
             {answerState !== ANSWER_STATE.UNANSWERED && nextUid &&
               <Link to={`/question/${nextUid}`} className={styles.question__nextButton}>
                 次の問題へ

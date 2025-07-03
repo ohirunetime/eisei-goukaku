@@ -1,0 +1,132 @@
+@use "@/styles/base/media.module" as mediaModule;
+
+.login {
+  &__container {
+    display: flex;
+    gap: 40px;
+    max-width: 800px;
+    margin: 40px auto;
+    @include mediaModule.respond(xs) {
+      flex-direction: column;
+    }
+  }
+
+  &__formSection {
+    flex: 1;
+    background: #fff;
+    padding: 32px 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__title {
+    font-size: 2rem;
+    margin-bottom: 24px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__label {
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  &__input {
+    padding: 12px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+
+  &__error {
+    color: #d32f2f;
+    background: #fff0f0;
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+  }
+
+  &__button {
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 0;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+    &:hover {
+      background: #1565c0;
+    }
+  }
+
+  &__registerSection {
+    flex: 1;
+    background: #f7fafd;
+    padding: 32px 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  &__registerTitle {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 12px;
+  }
+
+  &__registerSubtitle {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+    color: #1976d2;
+  }
+
+  &__registerList {
+    margin-bottom: 20px;
+    padding-left: 20px;
+    li {
+      margin-bottom: 8px;
+      list-style: disc;
+    }
+  }
+
+  &__registerButton {
+    background: #43a047;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+    &:hover {
+      background: #388e3c;
+    }
+    @include mediaModule.respond(xs) {
+          margin: 0 auto;
+          width: 80%;
+
+    }
+  }
+}

@@ -10,9 +10,9 @@
   max-width: 800px;
 
   @include mediaModule.respond(xs) {
-    width: 100%;
+    width: calc(100% - 16px);
     max-width: 100%;
-    margin: unset;
+    margin: 0 auto;
   }
 
   h1,
@@ -61,7 +61,7 @@
       // display: flex;
       transition: all 0.2s;
       padding: 0 10px;
-      margin-top: 20px;
+      margin-top: 25px;
       align-items: center;
       display: flex;
       &:hover {
@@ -81,6 +81,9 @@
       }
       &-done {
         border: 2px solid #6a6a6a;
+      }
+      @include mediaModule.respond(xs) {
+        margin-top: 20px;
       }
     }
 
@@ -201,33 +204,7 @@
     color: black;
     text-decoration: none;
   }
-  &__rating {
-    display: block;
-    width: 290px;
-    margin: 30px auto 0;
 
-    &_title {
-      display: block;
-    }
-    &_stars {
-      display: flex;
-      justify-content: center;
-      margin-top: 10px;
-      gap: 10px;
-      justify-content: center;
-    }
-    &_star {
-      cursor: pointer;
-      background-image: url("../images/question/star-white.svg");
-      width: 50px;
-      height: 50px;
-      background-size: contain;
-      background-repeat: no-repeat;
-      &--selected {
-        background-image: url("../images/question/star-yellow.svg");
-      }
-    }
-  }
   &__lottieOverlay {
     position: fixed;
     top: 0;
@@ -240,26 +217,14 @@
     z-index: 1000;
     pointer-events: none;
   }
-
-  &__lottieCorrectWrapper {
-    max-width: 1400px;
-    width: "100%";
-    @include mediaModule.respond(xs) {
-      max-width: 100%;
-    }
-  }
-  &__lottieIncorrectWrapper {
-    max-width: 1200px;
-    width: "100%";
-    @include mediaModule.respond(xs) {
-      max-width: 700px;
-    }
-  }
   &__keep {
     display: flex;
-    margin-top: 30px;
+    margin-top: 45px;
     padding: 0 0 0 8px;
     align-content: center;
+    @include mediaModule.respond(xs) {
+      margin-top: 30px;
+    }
 
     label {
       padding-left: 6px;
