@@ -5,18 +5,16 @@ import Layout from "@/components/layout/Layout"
 import * as styles from "./question.module.scss";
 import eyeOpenSvg from "@/images/question/eye-open.svg"
 import eyeCloseSvg from "@/images/question/eye-close.svg"
-import starYellowSvg from "@/images/question/star-yellow.svg"
-import starWhiteSvg from "@/images/question/star-white.svg"
 import circleGreenSvg from "@/images/question/circle-green.svg"
 import closeRedSvg from "@/images/question/close-red.svg"
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { useAuth } from "@/contexts/AuthContext";
-import { toast } from "react-hot-toast";
-
+import { SaveLaterCheckBox } from "@/components/SaveLaterCheckBox";
 
 import { ANSWER_STATE, type AnswerState } from '@/constants/answer';
 import parse from 'html-react-parser'
 import sanitizeHtml from 'sanitize-html'
+import { saveAnswer } from "@/firestore/saveAnswer";
 
 
 type QuestionPageContext = {
@@ -101,7 +99,7 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
     )
   }
 
-  const handleAnswer = () => {
+  const handleAnswer = async () => {
     const isCorrect = selectedChoiceIndex === question.correctChoice - 1;
     setAnswerState(isCorrect ? ANSWER_STATE.CORRECT : ANSWER_STATE.INCORRECT);
 
@@ -115,21 +113,12 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
       setIsAnimationFinished(true)
     }, 1600);
 
-  }
-
-  // 問題理解度の星のクリック状態
-  const handleUnderstandingRatingSelect = (selectStar: number) => {
-    setSelectedStar(selectStar);
-  }
-
-  const handleKeepQuestion = (checked: boolean) => {
-    if (checked) {
-      setIsSuccessKeep(true);
-      toast.success("保存しました");
-    } else {
-      setIsSuccessKeep(true);
-      toast.success("保存を取り消しました");
-
+    if (user) {
+      try {
+        await saveAnswer(user.uid, question.uid, isCorrect, selectedChoiceIndex);
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 
@@ -250,10 +239,7 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
               <button type="button" className={styles.question__answerButton} onClick={() => handleAnswer()}>解答する</button>
             }
             {answerState !== ANSWER_STATE.UNANSWERED &&
-              <div className={styles.question__keep}>
-                <input type="checkbox" id="keep" onChange={(e) => handleKeepQuestion(e.target.checked)} />
-                <label htmlFor="keep">あとで見返す</label>
-              </div>
+              <SaveLaterCheckBox questionId={question.uid} questionText={question.questionText} />
             }
             {answerState !== ANSWER_STATE.UNANSWERED && nextUid &&
               <Link to={`/question/${nextUid}`} className={styles.question__nextButton}>

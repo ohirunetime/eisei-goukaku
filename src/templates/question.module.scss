@@ -217,17 +217,4 @@
     z-index: 1000;
     pointer-events: none;
   }
-  &__keep {
-    display: flex;
-    margin-top: 45px;
-    padding: 0 0 0 8px;
-    align-content: center;
-    @include mediaModule.respond(xs) {
-      margin-top: 30px;
-    }
-
-    label {
-      padding-left: 6px;
-    }
-  }
 }

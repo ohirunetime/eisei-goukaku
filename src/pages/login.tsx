@@ -1,20 +1,24 @@
 import React, { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { navigate } from "gatsby";
+import { useLocation } from "@reach/router";
 import Layout from "@/components/layout/Layout";
 import * as styles from "@/styles/page/login.module.scss";
 import { toast } from "react-hot-toast";
 
-const LoginPage: React.FC = () => {
+const LoginPage = () => {
+
     const { login, user } = useAuth();
     const [userId, setUserId] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState<string | null>(null);
 
-    if (user) {
-        if (typeof window !== "undefined") navigate("/");
-        return <p>ログイン済みです。リダイレクト中...</p>;
+    //型定義を拡張する
+    interface LocationState {
+        from?: string;
     }
+    const location = useLocation() as { state: LocationState };
+    const from = location.state?.from || "/";
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -23,7 +27,7 @@ const LoginPage: React.FC = () => {
         try {
             await login(userId, password);
             toast.success("ログインしました");
-            navigate("/");
+            navigate(from);
         } catch (err) {
             setError("ログインに失敗しました");
         }
