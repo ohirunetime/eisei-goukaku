@@ -19,7 +19,11 @@ const LoginPage = () => {
     }
     const location = useLocation() as { state: LocationState };
     const from = location.state?.from || "/";
-
+    if (user) {
+        // 既にログインしている場合は、リダイレクト
+        navigate(from);
+        return;
+    }
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError(null);
