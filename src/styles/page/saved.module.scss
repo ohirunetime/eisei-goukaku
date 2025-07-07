@@ -1,0 +1,73 @@
+@use "@/styles/base/media.module" as mediaModule;
+
+.saved {
+  display: block;
+  font-size: 1rem;
+  margin-top: 40px;
+  display: block;
+  position: relative;
+  width: 100%;
+  margin: auto;
+  max-width: 800px;
+
+  @include mediaModule.respond(xs) {
+    max-width: 100%;
+    margin: 0 auto;
+    width: calc(100% - 16px);
+  }
+  ul {
+    padding-left: 0;
+  }
+  &__questionBlock {
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 10px;
+    align-items: center;
+  }
+  &__item {
+    font-size: 1rem;
+    display: block;
+    font-weight: 400;
+    padding: 5px 6px;
+
+    position: relative;
+    height: 100%;
+    gap: 10px;
+    border: 2px solid #e5e5e5;
+    border-radius: 12px;
+    transition: all 0.2s;
+    margin-top: 20px;
+    display: block;
+    &:not(:first-of-type) {
+      margin-top: 20px;
+    }
+  }
+  &__question-link {
+    width: 85%;
+    align-items: center;
+    text-decoration: unset;
+    color: black;
+  }
+  &__question-id {
+    display: block;
+    text-decoration: underline;
+  }
+  &__questionText {
+    display: block;
+    margin-top: 5px;
+  }
+  &__trash-button {
+    align-items: center;
+    width: 9%;
+    height: fit-content;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    max-width: 40px;
+
+    img {
+      width: 100%;
+    }
+  }
+}
