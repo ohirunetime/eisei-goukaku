@@ -16,7 +16,7 @@
   background-color: #ffffff;
   padding: 10px 0 40px;
   @include mediaModule.respond(xs) {
-    width: calc(100% - 16px);
+    width: calc(100% - 24px);
     max-width: 100%;
   }
 }
