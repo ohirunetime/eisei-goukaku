@@ -1,19 +1,21 @@
 @use "@/styles/base/media.module" as mediaModule;
 
-.saved {
+.bookmark {
   display: block;
   font-size: 1rem;
   margin-top: 40px;
   display: block;
   position: relative;
-  width: 100%;
+  width: fit-content;
   margin: auto;
-  max-width: 800px;
+  padding: 0 12px;
+  
 
   @include mediaModule.respond(xs) {
+    width: fit-content;
     max-width: 100%;
     margin: 0 auto;
-    width: calc(100% - 16px);
+    padding: 0;
   }
   ul {
     padding-left: 0;

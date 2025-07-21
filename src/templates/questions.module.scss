@@ -1,18 +1,18 @@
 @use "@/styles/base/media.module" as mediaModule;
+@use "@/styles/components/subjectLabel.module.scss" as subjectLabel;
 
 .questions {
   font-size: 1rem;
   margin-top: 40px;
   display: block;
   position: relative;
-  width: 100%;
+  width: fit-content;
   margin: auto;
-  max-width: 800px;
-
+  padding: 0 12px;
   @include mediaModule.respond(xs) {
-    max-width: 100%;
+    max-width: fit-content;
     margin: 0 auto;
-    width: calc(100% - 16px);
+    padding: 0;
   }
 
   h1,
@@ -44,6 +44,8 @@
       height: 100%;
       gap: 10px;
       border: 2px solid #e5e5e5;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
       border-radius: 12px;
       // display: flex;
       transition: all 0.2s;
@@ -51,7 +53,7 @@
       align-items: center;
       display: flex;
       a {
-        padding: 12px;
+        padding: 7px 12px 8px;
         height: 100%;
         width: 100%;
         color: black;
@@ -62,4 +64,13 @@
       }
     }
   }
+
+  &__subject {
+    @extend .subject-label;
+  }
+  &__subject_1 { @extend .subject-label_1; }
+  &__subject_2 { @extend .subject-label_2; }
+  &__subject_3 { @extend .subject-label_3; }
+  &__subject_4 { @extend .subject-label_4; }
+  &__subject_5 { @extend .subject-label_5; }
 }

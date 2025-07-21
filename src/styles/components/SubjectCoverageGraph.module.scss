@@ -1,0 +1,102 @@
+.subject-coverage {
+  &__list {
+    display: flex;
+    gap: 18px;
+    display: flex;
+    justify-content: flex-start;
+
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  &__item {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 24px 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 0;
+    width: calc(50% - 40px);
+  }
+
+  &__title {
+    font-size: .9rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #222;
+  }
+
+  &__percent {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    background: transparent;
+  }
+
+  // パーセント数字用
+  &__percent--green {
+    color: #22c55e;
+  }
+  &__percent--teal {
+    color: #14b8a6;
+  }
+  &__percent--orange {
+    color: #f59e42;
+  }
+  &__percent--red {
+    color: #ef4444;
+  }
+
+  // バー用
+  &__bar-track {
+    width: 100%;
+    width: 100%;
+    height: 7px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 10px;
+  }
+  &__bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    border-radius: 4px;
+    transition: width 0.4;
+  }
+  &__bar-fill--green {
+    background: #22c55e;
+  }
+  &__bar-fill--green {
+    background: #22c55e;
+  }
+  &__bar-fill--teal {
+    background: #14b8a6;
+  }
+  &__bar-fill--orange {
+    background: #f59e42;
+  }
+  &__bar-fill--red {
+    background: #ef4444;
+  }
+}
+
+.subjectCoverage__group {
+  margin-bottom: 32px;
+}
+.subjectCoverage__groupTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #2563eb;
+}
+.subjectCoverage__countText {
+  font-size: 0.8rem;
+  color: #666;
+  font-weight: 500;
+  display: block;
+}

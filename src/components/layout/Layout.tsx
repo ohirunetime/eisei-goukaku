@@ -11,6 +11,7 @@ type Props = {
 const Layout = ({ children }: Props) => {
     return (
         <div className={styles.base}>
+            <div className={styles.background}></div>
             <Header />
             <Toaster />
             <main className={styles.wrapper}>{children}</main>

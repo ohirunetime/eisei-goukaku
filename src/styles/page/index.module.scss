@@ -6,11 +6,101 @@
   position: relative;
   width: 100%;
   margin: auto;
-  max-width: 800px;
 
   @include mediaModule.respond(xs) {
-    width: calc(100% - 16px);
     max-width: 100%;
     margin: 0 auto;
+  }
+
+  h2 {
+    font-size: 2rem;
+    padding: 32px 0 24px 0;
+    text-align: center;
+    font-weight: 700;
+  }
+
+  section {
+    margin-bottom: 32px;
+    padding: 0 8px;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    font-weight: 600;
+    color: #2563eb;
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 12px;
+    justify-content: flex-start;
+
+    a {
+      display: inline-block;
+      background: #f3f4f6;
+      color: #222;
+      border-radius: 6px;
+      padding: 10px 18px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.2s;
+      &:hover {
+        background: #2563eb;
+        color: #fff;
+      }
+    }
+  }
+
+  &__subjects {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+
+  &__subjectBtn {
+    display: inline-block;
+    background: #e0e7ff;
+    color: #3730a3;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+    &:hover {
+      background: #6366f1;
+      color: #fff;
+    }
+  }
+
+  &__searchForm {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+
+    input[type="text"] {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    button {
+      padding: 8px 16px;
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      &:hover {
+        background: #1e40af;
+      }
+    }
   }
 }

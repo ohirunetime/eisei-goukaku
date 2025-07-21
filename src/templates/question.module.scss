@@ -1,18 +1,20 @@
 @use "@/styles/base/media.module" as mediaModule;
+@use "@/styles/components/subjectLabel.module.scss" as subjectLabel;
 
 .question {
   font-size: 1rem;
   margin-top: 40px;
   display: block;
   position: relative;
-  width: 100%;
+  width: fit-content;
   margin: auto;
-  max-width: 800px;
+  padding: 0 12px;
+  background: #ffffff;
 
   @include mediaModule.respond(xs) {
-    width: calc(100% - 16px);
     max-width: 100%;
     margin: 0 auto;
+    padding: 0;
   }
 
   h1,
@@ -22,7 +24,7 @@
     font-weight: 400;
   }
   &__period {
-    margin-bottom: 5px;
+    padding: 15px 0 5px;
   }
 
   &__header {
@@ -39,12 +41,13 @@
   }
 
   &__text {
-    margin-top: 50px;
+    display: block;
+    margin-top: 20px;
   }
 
   &__choices {
     padding: 0;
-    margin-top: 30px;
+    margin-top: 20px;
   }
 
   &__choice {
@@ -53,9 +56,11 @@
     font-weight: 400;
 
     &-wrapper {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
       position: relative;
       height: 100%;
       gap: 10px;
+      background-color: #ffffff;
       border: 2px solid #e5e5e5;
       border-radius: 12px;
       // display: flex;
@@ -217,5 +222,24 @@
     justify-content: center;
     z-index: 1000;
     pointer-events: none;
+  }
+  &__subject {
+    margin-left: auto;
+    @extend .subject-label;
+  }
+  &__subject_1 {
+    @extend .subject-label_1;
+  }
+  &__subject_2 {
+    @extend .subject-label_2;
+  }
+  &__subject_3 {
+    @extend .subject-label_3;
+  }
+  &__subject_4 {
+    @extend .subject-label_4;
+  }
+  &__subject_5 {
+    @extend .subject-label_5;
   }
 }

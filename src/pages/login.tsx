@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { useAuth } from "@/contexts/AuthContext";
 import { navigate } from "gatsby";
 import { useLocation } from "@reach/router";
 import Layout from "@/components/layout/Layout";
 import * as styles from "@/styles/page/login.module.scss";
 import { toast } from "react-hot-toast";
+import { signIn } from '@/lib/auth';
+import { useAuthContext } from "@/contexts/AuthContext";
 
 const LoginPage = () => {
 
-    const { login, user } = useAuth();
+    const { user } = useAuthContext(); 
     const [userId, setUserId] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState<string | null>(null);
@@ -27,14 +28,14 @@ const LoginPage = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError(null);
-
-        try {
-            await login(userId, password);
+        const { data, error: authError } = await signIn(userId, password)
+        if (authError) {
+            setError("ログインに失敗しました");
+        } else {
             toast.success("ログインしました");
             navigate(from);
-        } catch (err) {
-            setError("ログインに失敗しました");
         }
+
     };
 
     return (

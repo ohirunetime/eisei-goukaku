@@ -7,17 +7,10 @@ import * as styles from "./questions.module.scss";
 import parse from 'html-react-parser'
 import sanitizeHtml from 'sanitize-html'
 
-
-type QuestionNode = {
-    node: {
-        uid: string;
-        index: number;
-        summary: string;
-    };
-};
+import { QuestionWithSubject } from "@/types/question";
 
 interface QuestionsPageContext {
-    questions: QuestionNode[];
+    questions: QuestionWithSubject[];
 }
 
 const QuestionsTemplate: React.FC<PageProps<unknown, QuestionsPageContext>> = ({ pageContext }) => {
@@ -32,15 +25,28 @@ const QuestionsTemplate: React.FC<PageProps<unknown, QuestionsPageContext>> = ({
                 <nav aria-label="問題リスト">
                     <ol className={styles.questions__list}>
                         {questions.map((question, i) => (
-                            <li key={question.node.uid} className={styles.questions__questionWrapper}>
+                            <li key={question.questionId} className={styles.questions__questionWrapper}>
                                 <Link
-                                    to={`/question/${question.node.uid}`}
+                                    to={`/question/${question.questionId}`}
                                     className={styles.questions__link}
-                                    aria-label={`問題${question.node.index}: ${question.node.summary}`}
+                                    aria-label={`問題${question.index}: ${question.summary}`}
                                 >
-                                    <span className={styles.questions__index}>問{question.node.index}.</span>{" "}
+                                    {/* カテゴリー（科目名）を左上に */}
+                                    {question.subjects?.subject && (
+                                        <span
+                                          className={
+                                            `${styles.questions__subject} ${styles[
+                                              "questions__subject_" +
+                                              question.subjects.id
+                                            ]}`
+                                          }
+                                        >
+                                          {question.subjects.subject}
+                                        </span>
+                                    )}
+                                    <span className={styles.questions__index}>問{question.index}.</span>{" "}
                                     <span className={styles.questions__summary}>
-                                        {parse(sanitizeHtml(question.node.summary))}
+                                        {parse(sanitizeHtml(question.summary ?? ""))}
                                     </span>
                                 </Link>
                             </li>

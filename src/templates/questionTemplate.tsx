@@ -8,44 +8,24 @@ import eyeCloseSvg from "@/images/question/eye-close.svg"
 import circleGreenSvg from "@/images/question/circle-green.svg"
 import closeRedSvg from "@/images/question/close-red.svg"
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
-import { useAuth } from "@/contexts/AuthContext";
-import { SaveLaterCheckBox } from "@/components/SaveLaterCheckBox";
+import { useAuthContext } from "@/contexts/AuthContext";
+import { BookmarkCheckBox } from "@/components/BookmarkCheckBox";
 
 import { ANSWER_STATE, type AnswerState } from '@/constants/answer';
 import parse from 'html-react-parser'
 import sanitizeHtml from 'sanitize-html'
-import { saveAnswer } from "@/firestore/saveAnswer";
-
-
+import { useAnswerSubmission } from '@/hooks/useAnswerSubmission';
+import { QuestionWithSubject } from "@/types/question";
 type QuestionPageContext = {
   prevUid: number | null,
   nextUid: number | null,
-
-  question: {
-    uid: string;
-    period: number;
-    month: number;
-    index: number;
-    subject: string;
-    questionText: string;
-    choice1: string;
-    explanation1: string;
-    choice2: string;
-    explanation2: string;
-    choice3: string;
-    explanation3: string;
-    choice4: string;
-    explanation4: string;
-    choice5: string;
-    explanation5: string;
-    correctChoice: number;
-  };
+  question: QuestionWithSubject
 };
 
 const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }) => {
   const question = pageContext.question;
   const nextUid = pageContext.nextUid;
-  const { user } = useAuth();
+  const { user } = useAuthContext();
 
 
   if (!question) return <div>データがありません</div>;
@@ -78,11 +58,10 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
   const [selectedChoiceIndex, setSelected] = React.useState<number | null>(null);
   const [hiddenChoiceIndices, setHiddenChoices] = React.useState<number[]>([]);
   const [answerState, setAnswerState] = React.useState<AnswerState>(ANSWER_STATE.UNANSWERED);
-  const [understandingRating, setSelectedStar] = React.useState<number | null>(null);
   const [showResultAnimation, setShowResultAnimation] = React.useState<null | "correct" | "incorrect">(null);
-
   const [isAnimationFinished, setIsAnimationFinished] = React.useState(false);
-  const [isSuccessKeep, setIsSuccessKeep] = React.useState(false);
+
+  const { submitAnswer } = useAnswerSubmission();
 
   // 選択肢のセレクト状態
   const handleChoiceSelect = (choiceIndex: number) => {
@@ -100,6 +79,10 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
   }
 
   const handleAnswer = async () => {
+    if (selectedChoiceIndex === null) {
+      // 選択肢が選ばれていない場合は何もしない
+      return;
+    }
     const isCorrect = selectedChoiceIndex === question.correctChoice - 1;
     setAnswerState(isCorrect ? ANSWER_STATE.CORRECT : ANSWER_STATE.INCORRECT);
 
@@ -115,9 +98,9 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
 
     if (user) {
       try {
-        await saveAnswer(user.uid, question.uid, isCorrect, selectedChoiceIndex);
+        await submitAnswer(question.questionId, isCorrect, selectedChoiceIndex + 1);
       } catch (e) {
-        console.log(e);
+        console.error("Answer submission failed:", e);
       }
     }
   }
@@ -155,8 +138,11 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
 
           <article>
             <header className={styles.question__header}>
-              <h1 className={styles.question__period}>衛生管理者 令和{question.period}年{question.month}月度 過去問 第{question.index}問</h1>
-              <span className={styles.question__subject}>{question.subject}</span>
+              <h1 className={styles.question__period}>衛生管理者 令和{question.year}年{question.month}月度 過去問 第{question.index}問</h1>
+              <span className={`${styles.question__subject} ${styles[
+                "question__subject_" +
+                question.subjects.id
+              ]}`}>{question.subjects.subject}</span>
             </header>
             <h2 className={styles.question__text}>
               <span className={styles.question__number}>問{question.index}</span>
@@ -178,9 +164,9 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
 
                 } key={i + 1}>
                   <div className={styles.question__choiceWrapper
-                    + (answerState !== ANSWER_STATE.UNANSWERED && i + 1 === question.correctChoice ? " " + styles["question__choiceWrapperCorrect"] : "")
-                    + (answerState === ANSWER_STATE.INCORRECT && i === selectedChoiceIndex ? " " + styles["question__choiceWrapperIncorrect"] : "")
-                    + (answerState !== ANSWER_STATE.UNANSWERED ? " " + styles["question__choiceWrapperDone"] : "")
+                    + (answerState !== ANSWER_STATE.UNANSWERED && isAnimationFinished && i + 1 === question.correctChoice ? " " + styles["question__choiceWrapperCorrect"] : "")
+                    + (answerState === ANSWER_STATE.INCORRECT && isAnimationFinished && i === selectedChoiceIndex ? " " + styles["question__choiceWrapperIncorrect"] : "")
+                    + (answerState !== ANSWER_STATE.UNANSWERED && isAnimationFinished ? " " + styles["question__choiceWrapperDone"] : "")
                   }
                   >
                     <label className={styles.question__label}>
@@ -214,9 +200,6 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
                         {answerState !== ANSWER_STATE.UNANSWERED && (
                           <img src={i + 1 === question.correctChoice ? circleGreenSvg : closeRedSvg} />
                         )}
-                        {/* {answerState === ANSWER_STATE.INCORRECT && i === selectedChoiceIndex && (
-                          <img src={closeRedSvg} />
-                        )} */}
                       </span>
 
                       {answerState !== ANSWER_STATE.UNANSWERED && (
@@ -238,8 +221,8 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
             {answerState === ANSWER_STATE.UNANSWERED &&
               <button type="button" className={styles.question__answerButton} onClick={() => handleAnswer()}>解答する</button>
             }
-            {answerState !== ANSWER_STATE.UNANSWERED &&
-              <SaveLaterCheckBox questionId={question.uid} questionText={question.questionText} />
+            {answerState !== ANSWER_STATE.UNANSWERED && isAnimationFinished &&
+              <BookmarkCheckBox questionId={question.questionId} />
             }
             {answerState !== ANSWER_STATE.UNANSWERED && nextUid &&
               <Link to={`/question/${nextUid}`} className={styles.question__nextButton}>

@@ -1,0 +1,14 @@
+.dailyAnswersChart {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 24px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+    padding: 0; // 余計なpaddingがないか確認
+  box-sizing: border-box;
+
+}
