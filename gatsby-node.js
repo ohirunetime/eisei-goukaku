@@ -23,17 +23,20 @@ exports.createPages = async ({ actions }) => {
 
   const { data, error } = await supabase
     .from("questions")
-    .select(`*,subjects:subject (id,subject)`);
+    .select(`*,subjects:subject (id,subject)`)
+    .order('index', { ascending: true });
 
   if (error) throw error;
   if (!data) throw new Error("questionsが取得できませんでした。");
 
   const questions = camelcaseKeys(data, { deep: true });
 
-  // year+monthごとにグループ化
+  // examtype+year+monthごとにグループ化
   const grouped = {};
   questions.forEach((q) => {
-    const key = `${q.year}${String(q.month).padStart(2, "0")}`; // 例: 202504
+    const key = `${String(q.examType).padEnd(2, "0")}${q.year}${String(
+      q.month
+    ).padStart(2, "0")}`; // 例: 202504
     if (!grouped[key]) grouped[key] = [];
     grouped[key].push(q);
   });

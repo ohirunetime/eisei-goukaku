@@ -12,10 +12,10 @@ const subjects = [
 ]
 
 const years = [
-  { key: "202510", label: "2025年後期" },
-  { key: "202510", label: "2025年前期" },
-  { key: "202510", label: "2024年後期" },
-  { key: "202510", label: "2024年前期" },
+  { key: "10202504", label: "2025年後期" },
+  { key: "10202504", label: "2025年前期" },
+  { key: "10202504", label: "2024年後期" },
+  { key: "10202504", label: "2024年前期" },
 ]
 
 const IndexPage: React.FC<PageProps> = () => {

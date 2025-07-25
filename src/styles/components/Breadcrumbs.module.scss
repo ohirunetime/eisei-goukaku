@@ -1,0 +1,55 @@
+@use "@/styles/base/media.module" as mediaModule;
+
+.breadcrumbs {
+  font-size: 1rem;
+  margin: 8px 0;
+  display: block;
+  margin: auto;
+  height: 100%;
+  max-width: 550px;
+  background-color: #ffffff;
+
+  &__list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+    padding: 10px 0 0 12px;
+    a {
+      color: #2563eb;
+      text-decoration: unset;
+    }
+    li:first-of-type a::before {
+      content: "";
+      position: relative;
+      display: inline-block;
+      background-image: url("../../images/breadcrumbs/house-solid.svg");
+      background-repeat: no-repeat;
+      width: 18px;
+      height: 18px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      width: 20px;
+      height: 20px;
+      transform: translateY(3px);
+      padding-right: 2px;
+    }
+  }
+  &__item {
+    display: flex;
+    align-items: center;
+  }
+  &__separator {
+    margin: 0 4px;
+    background-image: url("../../images/breadcrumbs/chevron-right-solid.svg");
+    width: 15px;
+    height: 15px;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  &__current {
+    color: black;
+    font-weight: bold;
+  }
+}

@@ -32,9 +32,16 @@ export const useBookmarks = (user: User) => {
             const { data, error } = await supabase
                 .from('bookmarks')
                 .select(`
-                    *,questions:question_id (*)
+                    *,
+                    questions:question_id (
+                    *,
+                    subjects:subject (
+                    id,
+                    subject)
+                    )
                 `)
-                .eq('user_id', user.id);
+                .eq('user_id', user.id)
+                .order('created_at', { ascending: false });
 
             if (error) throw error;
             const bookmarks: BookmarkWithQuestion[] = camelcaseKeys(data, { deep: true });

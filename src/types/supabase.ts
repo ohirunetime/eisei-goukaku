@@ -16,31 +16,31 @@ export type Database = {
     Tables: {
       answer_history: {
         Row: {
-          answered_at: string | null
+          answered_at: string
           choice_number: number | null
           created_at: string
           id: number
           is_correct: boolean
           question_id: number
-          user_id: string | null
+          user_id: string
         }
         Insert: {
-          answered_at?: string | null
+          answered_at?: string
           choice_number?: number | null
           created_at?: string
           id?: number
           is_correct: boolean
           question_id: number
-          user_id?: string | null
+          user_id: string
         }
         Update: {
-          answered_at?: string | null
+          answered_at?: string
           choice_number?: number | null
           created_at?: string
           id?: number
           is_correct?: boolean
           question_id?: number
-          user_id?: string | null
+          user_id?: string
         }
         Relationships: [
           {

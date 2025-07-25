@@ -68,9 +68,42 @@
   &__subject {
     @extend .subject-label;
   }
-  &__subject_1 { @extend .subject-label_1; }
-  &__subject_2 { @extend .subject-label_2; }
-  &__subject_3 { @extend .subject-label_3; }
-  &__subject_4 { @extend .subject-label_4; }
-  &__subject_5 { @extend .subject-label_5; }
+  &__subject_1 {
+    @extend .subject-label_1;
+  }
+  &__subject_2 {
+    @extend .subject-label_2;
+  }
+  &__subject_3 {
+    @extend .subject-label_3;
+  }
+  &__subject_4 {
+    @extend .subject-label_4;
+  }
+  &__subject_5 {
+    @extend .subject-label_5;
+  }
+
+  &__answerHistory {
+    position: absolute;
+    top: 3px;
+    right: 12px;
+    display: flex;
+  }
+  &__answerCorrect {
+    background-image: url("../assets/circle-check-xs.svg");
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+    display: block;
+    background-repeat: no-repeat;
+  }
+  &__answerIncorrect {
+    background-image: url("../assets/circle-xmark-xs.svg");
+    background-size: contain;
+    display: block;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+  }
 }

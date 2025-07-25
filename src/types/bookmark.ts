@@ -1,4 +1,4 @@
-import { Question } from "./question"; // questionsテーブルの型をインポート
+import { QuestionWithSubject } from "./question"; // questionsテーブルの型をインポート
 
 /**
  * Supabaseのbookmarksテーブル＋JOINしたquestionsデータ用型
@@ -8,5 +8,5 @@ export interface BookmarkWithQuestion {
   questionId: number;
   createdAt: string;
   userId: string;
-  questions: Question; // JOINしたquestionsデータ
+  questions: QuestionWithSubject; // JOINしたquestionsデータ
 }

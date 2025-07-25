@@ -1,4 +1,5 @@
 @use "@/styles/base/media.module" as mediaModule;
+@use "@/styles/components/SubjectLabel.module.scss" as subjectLabel;
 
 .bookmark {
   display: block;
@@ -60,8 +61,8 @@
   }
   &__trash-button {
     align-items: center;
-    width: 9%;
-    height: fit-content;
+    width: 35px;
+    height: 35px;
     padding: 0;
     border: none;
     background: transparent;
@@ -71,5 +72,23 @@
     img {
       width: 100%;
     }
+  }
+  &__subject {
+    @extend .subject-label;
+  }
+  &__subject_1 {
+    @extend .subject-label_1;
+  }
+  &__subject_2 {
+    @extend .subject-label_2;
+  }
+  &__subject_3 {
+    @extend .subject-label_3;
+  }
+  &__subject_4 {
+    @extend .subject-label_4;
+  }
+  &__subject_5 {
+    @extend .subject-label_5;
   }
 }

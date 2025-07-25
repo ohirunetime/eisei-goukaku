@@ -5,7 +5,7 @@ import Layout from "@/components/layout/Layout";
 import * as styles from "@/styles/page/bookmark.module.scss";
 import parse from 'html-react-parser'
 import sanitizeHtml from 'sanitize-html'
-import trashRed from "@/images/saved/trash-red.svg"
+import trashRed from "@/images/bookmark/trash-red.svg"
 import { toast } from "react-hot-toast";
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { useBookmarks } from "@/hooks/useBookmarks";
@@ -89,6 +89,18 @@ const BookmarkPage = () => {
                                 <li key={item.id} className={styles.bookmark__item}>
                                     <div className={styles.bookmark__questionBlock}>
                                         <Link to={`/question/${item.questionId}`} className={styles.bookmark__questionLink}>
+                                            {/* カテゴリー（科目名）を左上に */}
+                                            {item.questions.subjects?.subject && (
+                                                <span
+                                                    className={
+                                                        `${styles.bookmark__subject} ${styles[
+                                                        "bookmark__subject_" + item.questions.subjects.id
+                                                        ]}`
+                                                    }
+                                                >
+                                                    {item.questions.subjects.subject}
+                                                </span>
+                                            )}
                                             <span className={styles.bookmark__questionId}>{formatQuestionId(item.questionId)}</span>
                                             <span className={styles.bookmark__questionText}>
                                                 {parse(
