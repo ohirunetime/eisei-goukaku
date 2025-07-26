@@ -1,3 +1,5 @@
+@use "@/styles/base/media.module" as mediaModule;
+
 .subjectCoverage {
   &__list {
     display: flex;
@@ -73,6 +75,7 @@
     font-weight: bold;
     font-size: 12px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    white-space: nowrap
   }
 
   &__label {
@@ -102,6 +105,9 @@
     font-weight: 600;
     text-align: center;
     justify-content: space-evenly;
+    @include mediaModule.respond(xs) {
+      font-size: 0.8rem;
+    }
   }
   &__statGreen {
     color: #22c55e;
