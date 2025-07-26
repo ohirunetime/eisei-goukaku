@@ -1,13 +1,10 @@
-.subject-coverage {
+.subjectCoverage {
   &__list {
     display: flex;
-    gap: 18px;
-    display: flex;
-    justify-content: flex-start;
-
-    width: 100%;
     flex-wrap: wrap;
     gap: 8px;
+    width: 100%;
+    justify-content: flex-start;
   }
 
   &__item {
@@ -18,14 +15,12 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 100%;
-    margin-bottom: 0;
     width: calc(50% - 40px);
+    margin-bottom: 0;
   }
 
   &__title {
-    font-size: .9rem;
+    font-size: 0.9rem;
     font-weight: 600;
     margin-bottom: 8px;
     color: #222;
@@ -38,50 +33,100 @@
     background: transparent;
   }
 
-  // パーセント数字用
-  &__percent--green {
-    color: #22c55e;
-  }
-  &__percent--teal {
-    color: #14b8a6;
-  }
-  &__percent--orange {
-    color: #f59e42;
-  }
-  &__percent--red {
-    color: #ef4444;
-  }
-
   // バー用
-  &__bar-track {
+  &__barTrack {
+    position: relative;
     width: 100%;
-    width: 100%;
-    height: 7px;
+    height: 20px;
     background: #e5e7eb;
-    border-radius: 4px;
+    border-radius: 10px;
     overflow: hidden;
     margin-top: 10px;
+    margin-bottom: 2px;
   }
-  &__bar-fill {
+  &__barFillGreen {
+    background: #22c55e;
     height: 100%;
     border-radius: 4px;
+    transition: width 0.4s;
+  }
+  &__barFillBlue {
+    background: #2563eb;
+    height: 100%;
     border-radius: 4px;
-    transition: width 0.4;
+    transition: width 0.4s;
   }
-  &__bar-fill--green {
-    background: #22c55e;
+  &__barFillRed {
+    background: #ff4848;
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.4s;
   }
-  &__bar-fill--green {
-    background: #22c55e;
+
+  &__barTrackText {
+    position: absolute;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
   }
-  &__bar-fill--teal {
-    background: #14b8a6;
+
+  &__label {
+    font-size: 0.95em;
+    margin-top: 8px;
+    margin-bottom: 2px;
+    color: #222;
+    font-weight: 600;
   }
-  &__bar-fill--orange {
-    background: #f59e42;
+
+  &__percentGreen {
+    color: #22c55e;
+    font-weight: 700;
+    margin-bottom: 4px;
   }
-  &__bar-fill--red {
-    background: #ef4444;
+  &__percentBlue {
+    color: #2563eb;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  &__stats {
+    display: flex;
+    gap: 16px;
+    margin: 16px 0 4px 0;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    justify-content: space-evenly;
+  }
+  &__statGreen {
+    color: #22c55e;
+  }
+  &__statRed {
+    color: #ef4444;
+  }
+  &__statOrange {
+    color: #f59e42;
+  }
+
+  &__countText {
+    font-size: 0.8rem;
+    color: #666;
+    font-weight: 500;
+    display: block;
+  }
+
+  &__message {
+    background: #e6fbe6;
+    color: #256029;
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-top: 8px;
+    font-size: 1em;
   }
 }
 
@@ -93,10 +138,4 @@
   font-weight: 700;
   margin-bottom: 12px;
   color: #2563eb;
-}
-.subjectCoverage__countText {
-  font-size: 0.8rem;
-  color: #666;
-  font-weight: 500;
-  display: block;
 }

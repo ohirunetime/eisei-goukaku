@@ -14,6 +14,7 @@ export const useSubjectCoverage = () => {
             subjectId: row.subject_id,
             subjectName: row.subject_name,
             totalQuestionCount: row.total_question_count,
+            correctCount: row.correct_count,
             answeredQuestionCount: row.answered_question_count,
             year: row.year,
             month: row.month

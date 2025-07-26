@@ -11,6 +11,7 @@ export interface SubjectCoverage {
   subjectName: string;
   totalQuestionCount: number;
   answeredQuestionCount: number;
-  year:number;
-  month:number;
+  correctCount: number;
+  year: number;
+  month: number;
 }

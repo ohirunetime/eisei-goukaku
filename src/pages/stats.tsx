@@ -14,7 +14,7 @@ const StatsPage = () => {
         <div>
           <h3>日別回答数</h3>
           <DailyAnswersChart />
-          <h3>分野別網羅度</h3>
+          <h3>分野別解答率</h3>
           <SubjectCoverageGraph />
         </div>
       </main>

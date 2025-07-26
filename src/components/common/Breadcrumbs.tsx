@@ -62,7 +62,7 @@ const Breadcrumbs: React.FC = () => {
       <nav aria-label="パンくずリスト" className={styles.breadcrumbs}>
         <ol className={styles.breadcrumbs__list}>
           <li>
-            <Link to="/">ホーム</Link>
+            <Link to="/">TOP</Link>
           </li>
           <li className={styles.breadcrumbs__item}>
             <span className={styles.breadcrumbs__separator}></span>

@@ -4,6 +4,7 @@ import { useAuthContext } from '@/contexts/AuthContext';
 import type { SubjectCoverage } from '@/types/chart'
 import type { User } from '@/types/auth'
 import * as styles from "@/styles/components/SubjectCoverageGraph.module.scss";
+import { Link } from "gatsby";
 
 const getPercentColorMod = (percent: number) => {
     if (percent >= 80) return styles.subjectCoverage__percentGreen;
@@ -37,6 +38,7 @@ const SubjectCoverageGraph: React.FC = () => {
         load();
     }, [user, authLoading]);
 
+
     // year+monthでグループ化
     const grouped = subjectCoverage.reduce((acc, cur) => {
         const key = `${cur.year}-${cur.month}`;
@@ -62,21 +64,74 @@ const SubjectCoverageGraph: React.FC = () => {
                                 const percent = subject.totalQuestionCount === 0
                                     ? 0
                                     : Math.round(subject.answeredQuestionCount / subject.totalQuestionCount * 100);
+
+                                const currentPercent = percent;
                                 return (
                                     <div key={subject.subjectId} className={styles.subjectCoverage__item}>
                                         <div className={styles.subjectCoverage__title}>{subject.subjectName}</div>
-                                        <div className={`${styles.subjectCoverage__percent} ${getPercentColorMod(percent)}`}>
-                                            {percent}%
-                                            <span className={styles.subjectCoverage__countText}>
-                                                （{subject.answeredQuestionCount} / {subject.totalQuestionCount} 問）
-                                            </span>
-                                        </div>
+
+                                        {/* 取り組み進捗バー */}
+                                        <div className={styles.subjectCoverage__label}>取り組み進捗</div>
                                         <div className={styles.subjectCoverage__barTrack}>
                                             <div
-                                                className={`${styles.subjectCoverage__barFill} ${getBarColorMod(percent)}`}
+                                                className={styles.subjectCoverage__barFillGreen}
                                                 style={{ width: `${percent}%` }}
                                             />
+                                            <div className={styles.subjectCoverage__barTrackText}>
+                                            {percent}%（{subject.answeredQuestionCount}/{subject.totalQuestionCount}問）
                                         </div>
+                                        </div>
+                                        
+
+                                        {/* 習得進捗バー */}
+                                        <div className={styles.subjectCoverage__label}>正答率</div>
+                                        <div className={styles.subjectCoverage__barTrack}>
+                                            <div
+                                                className={styles.subjectCoverage__barFillBlue}
+                                                style={{
+                                                    width:
+                                                        subject.totalQuestionCount === 0
+                                                            ? "0%"
+                                                            : `${Math.round(
+                                                                (subject.correctCount / subject.totalQuestionCount) * 100
+                                                            )}%`,
+                                                }}
+                                            />
+                                            <div className={styles.subjectCoverage__barTrackText}>
+                                                {subject.totalQuestionCount === 0
+                                                    ? 0
+                                                    : Math.round(
+                                                        (subject.correctCount / subject.totalQuestionCount) * 100
+                                                    )}
+                                                %（{subject.correctCount}/{subject.totalQuestionCount}問正解）
+                                            </div>
+                                        </div>
+
+
+                                        {/* 数値表示 */}
+                                        <div className={styles.subjectCoverage__stats}>
+                                            <span className={styles.subjectCoverage__statGreen}>
+                                                {subject.correctCount}<br />正解
+                                            </span>
+                                            <span className={styles.subjectCoverage__statRed}>
+                                                {subject.answeredQuestionCount - subject.correctCount}<br />間違い
+                                            </span>
+                                            <span className={styles.subjectCoverage__statOrange}>
+                                                {subject.totalQuestionCount - subject.answeredQuestionCount}<br />未実施
+                                            </span>
+                                        </div>
+
+                                        {/* メッセージ
+                                        {percent !== 100 && (
+                                            // <Link to="/">問題へ</Link>
+                                        )} */}
+
+                                        {/* メッセージ */}
+                                        {percent === 100 && subject.correctCount === subject.totalQuestionCount ? (
+                                            <div className={styles.subjectCoverage__message}>
+                                                ✨ 完璧です！この調子で他の分野も頑張りましょう
+                                            </div>
+                                        ) : null}
                                     </div>
                                 );
                             })}
