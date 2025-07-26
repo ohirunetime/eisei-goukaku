@@ -137,7 +137,7 @@ const IndexPage: React.FC<PageProps<{}, QuestionPageContext>> = ({ pageContext }
 
           <article>
             <header className={styles.question__header}>
-              <h1 className={styles.question__period}>衛生管理者 令和{question.year}年{question.month}月度 過去問 第{question.index}問</h1>
+              <h1 className={styles.question__period}>衛生管理者 {question.year}年{question.month}月度 過去問 第{question.index}問</h1>
               <span className={`${styles.question__subject} ${styles[
                 "question__subject_" +
                 question.subjects.id

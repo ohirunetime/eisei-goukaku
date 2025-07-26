@@ -24,7 +24,7 @@ exports.createPages = async ({ actions }) => {
   const { data, error } = await supabase
     .from("questions")
     .select(`*,subjects:subject (id,subject)`)
-    .order('index', { ascending: true });
+    .order("index", { ascending: true });
 
   if (error) throw error;
   if (!data) throw new Error("questionsが取得できませんでした。");
@@ -41,15 +41,18 @@ exports.createPages = async ({ actions }) => {
     grouped[key].push(q);
   });
 
-  // 例えば各グループでページ生成
+  // 各グループでページ生成
   Object.entries(grouped).forEach(([key, questions]) => {
+    // 年月ごとのページ
     createPage({
       path: `/questions/${key}`,
       component: path.resolve(`./src/templates/questionsTemplate.tsx`),
       context: {
-        questions,
         year: questions[0].year,
         month: questions[0].month,
+        questions,
+        type: "yearMonth",
+        subjectId: null,
       },
     });
   });
@@ -66,6 +69,28 @@ exports.createPages = async ({ actions }) => {
         question,
         prevUid,
         nextUid,
+      },
+    });
+  });
+
+  // subject.idごとにグループ化
+  const subjectGrouped = {};
+  questions.forEach((q) => {
+    const key = q.subjects.id;
+    if (!subjectGrouped[key]) subjectGrouped[key] = [];
+    subjectGrouped[key].push(q);
+  });
+
+  // 各ジャンルでページ生成
+  Object.entries(subjectGrouped).forEach(([subjectId, questions]) => {
+    // ジャンルごとのページ
+    createPage({
+      path: `/subject/${subjectId}`,
+      component: path.resolve(`./src/templates/questionsTemplate.tsx`),
+      context: {
+        subjectId: subjectId,
+        questions: questions,
+        type: "subject",
       },
     });
   });

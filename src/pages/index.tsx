@@ -37,7 +37,7 @@ const IndexPage: React.FC<PageProps> = () => {
           <h3>ジャンルから選ぶ</h3>
           <div className={styles.index__subjects}>
             {subjects.map((s) => (
-              <Link key={s.id} to={`/questions/subject/${s.id}`} className={styles.index__subjectBtn}>
+              <Link key={s.id} to={`/subject/${s.id}`} className={styles.index__subjectBtn}>
                 {s.name}
               </Link>
             ))}

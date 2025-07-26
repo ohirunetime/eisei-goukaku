@@ -10,11 +10,16 @@ import { useAuthContext } from "@/contexts/AuthContext";
 import { User } from '@/types/auth';
 import { AnswerHistory } from "@/types/answerHistory";
 import { useAnswerHistoryByYearMonth } from '@/hooks/useAnswerHistoryByYearMonth'
+import { useAnswerHistoryBySubject } from '@/hooks/useAnswerHistoryBySubject'
 
 import { QuestionWithSubject } from "@/types/question";
 
 interface QuestionsPageContext {
     questions: QuestionWithSubject[];
+    type: "subject" | "yearMonth";
+    subjectId: number;
+    year: number;
+    month: number;
 }
 
 const QuestionsTemplate: React.FC<PageProps<unknown, QuestionsPageContext>> = ({ pageContext }) => {
@@ -22,14 +27,25 @@ const QuestionsTemplate: React.FC<PageProps<unknown, QuestionsPageContext>> = ({
 
     const { user } = useAuthContext();
     const [answerHistoryies, setAnswerHistoryies] = useState<AnswerHistory[]>([]);
+
+    // hooks
     const { fetchAnswerHistoryByYearMonth } = useAnswerHistoryByYearMonth(user as User);
+    const { fetchAnswerHistoryBySubject } = useAnswerHistoryBySubject(user as User);
+
     useEffect(() => {
+        if (!user) return;
         const fetchData = async () => {
-            const data = await fetchAnswerHistoryByYearMonth(questions[0].year, questions[0].month);
+            let data: AnswerHistory[] = [];
+            console.log(pageContext.type)
+            if (pageContext.type === "subject") {
+                data = await fetchAnswerHistoryBySubject(pageContext.subjectId);
+            } else {
+                data = await fetchAnswerHistoryByYearMonth(pageContext.year, pageContext.month);
+            }
             setAnswerHistoryies(data);
         };
         fetchData();
-    }, [user]);
+    }, [user, pageContext]);
 
     return (
         <Layout>
@@ -40,7 +56,7 @@ const QuestionsTemplate: React.FC<PageProps<unknown, QuestionsPageContext>> = ({
                 </header>
                 <nav aria-label="問題リスト">
                     <ol className={styles.questions__list}>
-                        {questions.map((question, i) => {
+                        {pageContext.questions.map((question, i) => {
                             // 該当問題の回答履歴を抽出
                             const histories = answerHistoryies.filter(
                                 (h) => h.questionId === question.questionId

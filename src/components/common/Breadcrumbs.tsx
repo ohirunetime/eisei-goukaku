@@ -14,6 +14,15 @@ const breadcrumbNameMap: Record<string, string> = {
   // 必要に応じて追加
 };
 
+const subjectMapNameMap: Record<string, string> = {
+  "1": "関係法令(有害)",
+  "2": "関係法令(有害以外)",
+  "3": "労働衛生(有害)",
+  "4": "労働衛生(有害以外)",
+  "5": "労働生理"
+};
+
+
 const Breadcrumbs: React.FC = () => {
   const location = useLocation();
   const pathnames = location.pathname.split("/").filter((x) => x);
@@ -67,6 +76,30 @@ const Breadcrumbs: React.FC = () => {
           <li className={styles.breadcrumbs__item}>
             <span className={styles.breadcrumbs__separator}></span>
             <span className={styles.breadcrumbs__current}>{year}年{month}月 過去問題</span>
+          </li>
+        </ol>
+      </nav>
+    );
+  }
+
+  // /subject/1 の場合
+  if (
+    pathnames[0] === "subject" &&
+    pathnames[1]
+  ) {
+    const subjectId = pathnames[1];
+    const subject = subjectMapNameMap[subjectId];
+    return (
+      <nav aria-label="パンくずリスト" className={styles.breadcrumbs}>
+        <ol className={styles.breadcrumbs__list}>
+          <li>
+            <Link to="/">TOP</Link>
+          </li>
+          <li className={styles.breadcrumbs__item}>
+            <span className={styles.breadcrumbs__separator}></span>
+            <span className={styles.breadcrumbs__current}>
+              {subject ? `${subject} 過去問題` : "カテゴリー 過去問題"}
+            </span>
           </li>
         </ol>
       </nav>
