@@ -3,6 +3,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import * as styles from "@/styles/layout/layout.module.scss"
 import { Toaster } from "react-hot-toast";
+import Breadcrumbs from "@/components/common/Breadcrumbs";
 
 type Props = {
     children: React.ReactNode;
@@ -11,8 +12,10 @@ type Props = {
 const Layout = ({ children }: Props) => {
     return (
         <div className={styles.base}>
+            <div className={styles.background}></div>
             <Header />
             <Toaster />
+            <Breadcrumbs />
             <main className={styles.wrapper}>{children}</main>
             <Footer />
         </div>

@@ -1,27 +1,52 @@
-import * as React from "react"
+import React, { useEffect, useState } from "react"
 import type { HeadFC, PageProps } from "gatsby"
 import { Link } from "gatsby"
 import Layout from "@/components/layout/Layout"
 import * as styles from "./questions.module.scss";
-
 import parse from 'html-react-parser'
 import sanitizeHtml from 'sanitize-html'
 
+import { useAuthContext } from "@/contexts/AuthContext";
+import { User } from '@/types/auth';
+import { AnswerHistory } from "@/types/answerHistory";
+import { useAnswerHistoryByYearMonth } from '@/hooks/useAnswerHistoryByYearMonth'
+import { useAnswerHistoryBySubject } from '@/hooks/useAnswerHistoryBySubject'
 
-type QuestionNode = {
-    node: {
-        uid: string;
-        index: number;
-        summary: string;
-    };
-};
+import { QuestionWithSubject } from "@/types/question";
 
 interface QuestionsPageContext {
-    questions: QuestionNode[];
+    questions: QuestionWithSubject[];
+    type: "subject" | "yearMonth";
+    subjectId: number;
+    year: number;
+    month: number;
 }
 
 const QuestionsTemplate: React.FC<PageProps<unknown, QuestionsPageContext>> = ({ pageContext }) => {
     const questions = pageContext.questions;
+
+    const { user } = useAuthContext();
+    const [answerHistoryies, setAnswerHistoryies] = useState<AnswerHistory[]>([]);
+
+    // hooks
+    const { fetchAnswerHistoryByYearMonth } = useAnswerHistoryByYearMonth(user as User);
+    const { fetchAnswerHistoryBySubject } = useAnswerHistoryBySubject(user as User);
+
+    useEffect(() => {
+        if (!user) return;
+        const fetchData = async () => {
+            let data: AnswerHistory[] = [];
+            console.log(pageContext.type)
+            if (pageContext.type === "subject") {
+                data = await fetchAnswerHistoryBySubject(pageContext.subjectId);
+            } else {
+                data = await fetchAnswerHistoryByYearMonth(pageContext.year, pageContext.month);
+            }
+            setAnswerHistoryies(data);
+        };
+        fetchData();
+    }, [user, pageContext]);
+
     return (
         <Layout>
             <main className={styles.questions}>
@@ -31,20 +56,50 @@ const QuestionsTemplate: React.FC<PageProps<unknown, QuestionsPageContext>> = ({
                 </header>
                 <nav aria-label="問題リスト">
                     <ol className={styles.questions__list}>
-                        {questions.map((question, i) => (
-                            <li key={question.node.uid} className={styles.questions__questionWrapper}>
-                                <Link
-                                    to={`/question/${question.node.uid}`}
-                                    className={styles.questions__link}
-                                    aria-label={`問題${question.node.index}: ${question.node.summary}`}
-                                >
-                                    <span className={styles.questions__index}>問{question.node.index}.</span>{" "}
-                                    <span className={styles.questions__summary}>
-                                        {parse(sanitizeHtml(question.node.summary))}
-                                    </span>
-                                </Link>
-                            </li>
-                        ))}
+                        {pageContext.questions.map((question, i) => {
+                            // 該当問題の回答履歴を抽出
+                            const histories = answerHistoryies.filter(
+                                (h) => h.questionId === question.questionId
+                            );
+                            return (
+                                <li key={question.questionId} className={styles.questions__questionWrapper}>
+                                    <Link
+                                        to={`/question/${question.questionId}`}
+                                        className={styles.questions__link}
+                                        aria-label={`問題${question.index}: ${question.summary}`}
+                                    >
+                                        {/* カテゴリー（科目名）を左上に */}
+                                        {question.subjects?.subject && (
+                                            <span
+                                                className={
+                                                    `${styles.questions__subject} ${styles[
+                                                        "questions__subject_" + question.subjects.id
+                                                    ]}`
+                                                }
+                                            >
+                                                {question.subjects.subject}
+                                            </span>
+                                        )}
+                                        <span className={styles.questions__index}>問{question.index}.</span>{" "}
+                                        <span className={styles.questions__summary}>
+                                            {parse(sanitizeHtml(question.summary ?? ""))}
+                                        </span>
+                                        {/* 回答履歴表示 */}
+                                        {histories.length > 0 && (
+                                            <span className={styles.questions__answerHistory}>
+                                                {histories.map((h, idx) =>
+                                                    h.isCorrect ? (
+                                                        <span key={idx} className={styles.questions__answerCorrect}></span>
+                                                    ) : (
+                                                        <span key={idx} className={styles.questions__answerIncorrect}></span>
+                                                    )
+                                                )}
+                                            </span>
+                                        )}
+                                    </Link>
+                                </li>
+                            );
+                        })}
                     </ol>
                 </nav>
             </main>

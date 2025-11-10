@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as styles from "@/styles/layout/header.module.scss";
 import { Link } from "gatsby";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/hooks/useAuth";
 
 
 const Header = () => {
@@ -32,8 +32,11 @@ const Header = () => {
                 >
                     {user ? (
                         <>
-                            <Link to="/saved" className={styles.header__link}>
+                            <Link to="/bookmark" className={styles.header__link}>
                                 保存済み
+                            </Link>
+                            <Link to="/stats" className={styles.header__link}>
+                                学習履歴
                             </Link>
                             <Link to="/logout" className={styles.header__link}>
                                 ログアウト

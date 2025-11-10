@@ -15,12 +15,6 @@ const config: GatsbyConfig = {
   plugins: [
     `gatsby-plugin-sass`,
     `gatsby-transformer-json`,
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `./src/data/question.json`,
-      },
-    },
   ],
 }
 export default config

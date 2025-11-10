@@ -2,13 +2,7 @@
 
 .login {
   &__container {
-    display: flex;
-    gap: 40px;
-    max-width: 800px;
-    margin: 40px auto;
-    @include mediaModule.respond(xs) {
-      flex-direction: column;
-    }
+    display: block;
   }
 
   &__formSection {
@@ -16,7 +10,7 @@
     background: #fff;
     padding: 32px 24px;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -82,7 +76,7 @@
     background: #f7fafd;
     padding: 32px 24px;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -124,9 +118,8 @@
       background: #388e3c;
     }
     @include mediaModule.respond(xs) {
-          margin: 0 auto;
-          width: 80%;
-
+      margin: 0 auto;
+      width: 80%;
     }
   }
 }

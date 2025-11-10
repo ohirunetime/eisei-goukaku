@@ -19,7 +19,9 @@
   "license": "0BSD",
   "dependencies": {
     "@lottiefiles/dotlottie-react": "^0.14.1",
+    "@supabase/supabase-js": "^2.50.3",
     "@types/sanitize-html": "^2.16.0",
+    "camelcase-keys": "^9.1.3",
     "firebase": "^11.9.1",
     "gatsby": "^5.14.1",
     "gatsby-source-filesystem": "^5.14.0",
@@ -28,6 +30,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.5.2",
+    "recharts": "^3.1.0",
     "sanitize-html": "^2.17.0"
   },
   "devDependencies": {

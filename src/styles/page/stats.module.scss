@@ -1,0 +1,15 @@
+@use "@/styles/base/media.module" as mediaModule;
+
+.statsPage {
+  padding: 0 12px;
+  @include mediaModule.respond(xs) {
+    padding: 0;
+  }
+  &__totalCount {
+    display: block;
+  }
+}
+
+h3 {
+  margin: 30px 0 15px;
+}
